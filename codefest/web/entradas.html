@@ -1,10 +1,54 @@
 <!doctype html>
 <html>
   <header>
-    <nav></nav>
+    <nav>
+      <ul>
+        <li><a href=""https://mrnkwar-sys.github.io/index.html">Inicio</a></li>
+        <li><a href="https://mrnkwar-sys.github.io/web/cartel.html">Cartel</a></li>
+        <li><a href="https://mrnkwar-sys.github.io/web/localizacion.html">Localización</a></li>
+        <li><a href="https://mrnkwar-sys.github.io/web/entradas.html">Entradas</a></li>
+      </ul>
+    </nav>
   </header>
   <body>
-    
+    <main>
+      <form action="https://www.w3schools.com/action_page.php." method="post">
+        <fieldset>
+          <legend>Datos Personales</legend>
+          <label for="nombre">Nombre y Apellidos</label>
+          <input type="text" name="nombre" id="nombre" placeholder="Nombre y Apellidos">
+          <label for="correo">Email</label>
+          <input type="email" name="correo" id="correo" placeholder="Correo eléctronico" required>
+        </fieldset>
+        <fieldset>
+          <legend>Tipo de entrada</legend>
+          <label for="opcion1">Abono general (3 diías)</label>
+          <input type="radio" name="tipo_entrada" id="opcion1">
+          <label for="opcion2">Abono VIP (3 diías)</label>
+          <input type="radio" name="tipo_entrada" id="opcion2">
+          <label for="opcion3">Entrada de Día</label>
+          <input type="radio" name="tipo_entrada" id="opcion3">
+        </fieldset>
+        <fieldset>
+          <legend>Extras</legend>
+          <label for="box1">Camping</label>
+          <input type="checkbox" name="box1" id="box1">
+          <label for="box2">Pack Merchandising</label>
+          <input type="checkbox" name="box2" id="box2">
+          <label for="box3">Acceso a Talleres Tech</label>
+          <input type="checkbox" name="box3" id="box3">
+        </fieldset>
+        <fieldset>
+          <legend>Día (Solo si es Entrada de Día)</legend>
+          <select>
+            <option>Viernes</option>
+            <option>Sábado</option>
+            <option>Domingo</option>
+          </select>
+          <button type="submit">Enviar</button>
+        </fieldset>
+      </form>
+    </main>
   </body>
   <footer></footer>
 </html>
