@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+    <html lang="es-ES">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="author" content="María Raquel">
+            <meta name="description" content="Examen html">
+            <title>TechStock - Gestión de Almacén</title>
+        </head>
+        <header>
+            <h1 id="Inicio">María Raquel Nkwar Ipa</h1>
+            <img src="./828-800x400.jpg" alt="Imagen de fuegos artificiales">
+            <nav>
+                <ul>
+                    <li><a href="#Stock">Stock</a></li>
+                    <li><a href="#Pedidos"> Pedidos</a></li>
+                    <li><a href="#Proveedores">Proveedores</a></li>
+                    <li><a href="#Alertas">Alertas</a></li>
+                    <li><a href="https://perfil.com">Perfil</a></li>
+                </ul>
+            </nav>
+        </header>
+        <body>
+            <div>
+                <h2 id="Stock">Resumen de existencias</h2>
+                <table border="1">
+                    <thead>
+                        <tr>
+                        <th rowspan="2">Categoría</th>
+                        <th rowspan="2">Producto</th>
+                        <th colspan="2">Disponibilidad en tiendas</th>
+                        </tr><tr>
+                            <td>Sevilla</td>
+                            <td>Málaga</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr>
+                            <td rowspan="3">Perfiféricos</td>
+                            <td>Ratón</td>
+                            <td>2</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>Teclado</td>
+                            <td>1</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>Webcam</td>
+                            <td>5</td>
+                            <td>2</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2">Total</td>
+                            <td>8</td>
+                            <td>9</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                
+                
+                <hr>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <td rowspan="2">Cat</td>
+                            <td rowspan="2">Pro</td>
+                            <td colspan="2">Dis</td>
+                        </tr>
+                        <tr>
+                            <td>Sev</td>
+                            <td>Mal</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="3">Perfiféricos</td>
+                            <td>Ratón</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Teclado</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Webcam</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>
+            </div>
+            <form action="" method="post" name="Pedido" id="Pedidos">
+                <fieldset>
+                    <legend>Color del producto</legend>
+                    <select>
+                        <option>Rojo</option>
+                        <option>Verde</option>
+                        <option>Azul</option>
+                        <option>Morado</option>
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <legend>Stock</legend>
+                    <label for="cantidad">Nivel de Stock</label>
+                    <input type="number" name="nivel_Stock" id="cantidad" min="1" max="100">
+                </fieldset>
+                <fieldset>
+                    <legend id="Proveedores">Proveedor</legend>
+                    <label for="proveedor">Proveedor principal</label>
+                    <textarea name="prove" cols="50"></textarea>
+                </fieldset>
+                <fieldset>
+                    <legend>Hardware</legend>
+                    <label for="teclado">Teclado</label>
+                    <input type="checkbox" name="opcion_teclado" id="teclado">
+                    <label for="ratón">Ratón</label>
+                    <input type="checkbox" name="opcion_raton" id="ratón">
+                    <label for="webcam">Webcam</label>
+                    <input type="checkbox" name="opcion_webcam" id="webcam">
+                </fieldset>
+                <fieldset>
+                    <legend>Software</legend>
+                    <label for="sistema">Sistema Operativo</label>
+                    <input type="checkbox" name="opcion_sistema" id="sistema">
+                    <label for="aplicacion">Aplicación ofimática</label>
+                    <input type="checkbox" name="opcion_aplicacion" id="aplicacion">
+                    <label for="antivirus">Antivirus</label>
+                    <input type="checkbox" name="opcion_antivirus" id="antivirus">
+                </fieldset>
+                <fieldset>
+                    <legend>Complementos</legend>
+                    <label for="impresora">Tinta impresora</label>
+                    <input type="checkbox" name="complemento_imp" id="impresora">
+                    <label for="alfrombrilla">Alfombrilla</label>
+                    <input type="checkbox" name="complemento_alf" id="alfombrila">
+                </fieldset>
+                <button type="submit">Enviar</button>
+            </form>
+            <div>
+                <figure>
+                    <figcaption>Vídeo sobre gente utilizando dispositivos</figcaption>
+                    <video controls src="./gente.mp4"></video>
+                </figure>
+                <figure>
+                    <figcaption>Audio de un piano</figcaption>
+                    <audio controls src="./piano.mp3"></audio>
+                </figure>
+            </div>
+        </body>
+        <footer>
+            <p id="Alertas">Hecho por María Raquel Nkwar Ipa</p>
+            <a href="#Inicio">Volver al inicio de la página</a><br>
+            <a href="https://aviso_legal.es">Aviso legal</a>
+        </footer>
+    </html>
