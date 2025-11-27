@@ -1,0 +1,49 @@
+h1{
+    font-weight: bold;
+}
+
+#parrafo1{
+    font-style: italic;
+    text-align: right;
+}
+
+#parrafo2{
+    text-decoration: line-through;
+    text-transform: uppercase;
+}
+
+#parrafo3{
+    font-family: 'Times New Roman';
+    font-size: 120%;
+}
+
+#parrafo4{
+    font-style: bold;
+    text-shadow: -4px 3px 2px green;
+}
+
+#bloque1, #bloque2, #bloque3{
+    width: 400px;
+    height: 200px;
+    border-radius: 20px;
+}
+
+#bloque1{
+    background-color: #BADE7E;
+}
+
+#title{
+    padding-bottom: 10px;
+}
+
+#bloque2{
+    background-color: #9ED9CC;
+}
+
+#bloque3{
+    background-color: #D09FE0;
+}
+
+a{
+    color: white;
+}
