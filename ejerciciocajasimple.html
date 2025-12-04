@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ejercicio de Caja Simple</title>
+        <style>
+            #caja{
+                border: 2px solid #E3694D;
+                background-color: #FFA778;
+                width: 250px;
+                margin: 20px;
+                padding: 10px;
+            }
+
+            .container{
+                width: 80%;
+                height: 500px;
+                margin: auto;
+                padding: 20px;
+                background-color: lightgreen;
+                border: 5px double #4B66AB;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+            }
+
+            .item{
+                background-color: lightyellow;
+                width: 100px;
+                height: 100px;
+                border: 2px solid #28996A;
+            }
+
+            .barra{
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                background-color: #007bff;
+                padding: 1rem;
+
+            }
+
+            .barra a{
+                color: white;
+                text-decoration: none;
+
+            }
+
+            .card-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .card {
+                flex: 1 1 30%;
+                padding: 1rem;
+                border: 1px solid #ddd;
+                background-color: #f9f9f9;
+            }
+
+            .cajaFlot{
+                flex-wrap: wrap;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .item1{
+                width: 32%;
+                height: 25px;
+                margin: 5px;
+                display: flex;
+                background-color: #ADDDED;
+                border: 2px solid black;
+                align-self: flex-start;
+            }
+
+        </style>
+    </head>
+    <body>
+        <h2>Caja Simple</h2>
+        <div id="caja">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+                non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+        </div>
+        <h2>FlexBox</h2>
+        <div class="container">
+            <div class="item">Elemento 1</div>
+            <div class="item">Elemento 2</div>
+            <div class="item">Elemento 3</div>
+        </div>
+        <h2>Barra de navegación</h2>
+        <div id="barra">
+            <div id="inicio"><a>Inicio</a></div>
+            <div id="sobre"><a>Sobre mí</a></div>
+            <div id="contacto"><a>Contacto</a></div>
+        </div>
+        <h2>Diseño de tarjetas en columnas responsivas</h2>
+        <div class="card-container">
+            <div class="card">Tarjeta 1</div>
+            <div class="card">Tarjeta 2</div>
+            <div class="card">Tarjeta 3</div>
+        </div>
+        <h2>Caja Flotante</h2>
+        <div class="cajaFlot">
+                <div class="item1" id="arriba">Columna 1</div>
+                <div class="item1" id="arriba">Columna 2</div>
+                <div class="item1" id="arriba">Columna 3</div>
+                <div class="item1" id="abajo">Columna 4</div>
+                <div class="item1" id="abajo">Columna 5</div>
+                <div class="item1" id="abajo">Columna 6</div>
+            </div>
+        </div>
+    </body>
+</html>
