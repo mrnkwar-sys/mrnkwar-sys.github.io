@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejercicio01</title>
+    </head>
+    <body>
+        <input type="text" id="nombre">
+        <input type="number"  id="edad">
+        <button id=boton>Enviar</button>
+
+        <script>
+            let nombre = document.getElementById("nombre");
+            let edad = document.getElementById("edad");
+            let mensaje = document.getElementById("mensaje");
+            boton.addEventListener("click", funtion(){
+                mensaje.innerHTML = "Hola, me llamo ${nombre} y tengo ${edad} años";
+                document.body.appendChild(mensaje);
+            })
+        </script>
+    </body>
+</html>

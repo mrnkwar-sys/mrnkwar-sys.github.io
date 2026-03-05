@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejercicios DOM</title>
+        <style>
+            #botoncito{
+                background-color: #e18299;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="titulo">Hola</div> 
+        <div><button id="botoncito">Botón</button></div>
+        <script>
+            const titulo=document.getElementById('titulo');
+
+            //Creo boton rojo
+            let botonRojo = document.createElement('button');
+            botonRojo.className = "rojo";
+            botonRojo.textContent="Rojo";
+            botonRojo.style.backgroundColor = "red";
+            botonRojo.style.color = "white";
+            document.body.appendChild(botonRojo);
+
+            //Creo boton azul
+            let botonAzul = document.createElement('button');
+            botonAzul.className = "azul";
+            botonAzul.textContent="Azul";
+            botonAzul.style.backgroundColor = "blue";
+            botonAzul.style.color = "white";
+            document.body.appendChild(botonAzul);
+
+            //Creo boton verde
+            let botonVerde = document.createElement('button');
+            botonVerde.className = "verde";
+            botonVerde.textContent="Verde";
+            botonVerde.style.backgroundColor = "green";
+            botonVerde.style.color = "white";
+            document.body.appendChild(botonVerde);
+
+             //Creo boton amarillo
+            let botonAmarillo = document.createElement('button');
+            botonAmarillo.className = "amarillo";
+            botonAmarillo.textContent="Amarillo";
+            botonAmarillo.style.backgroundColor = "yellow";
+            botonAmarillo.style.color = "black";
+            document.body.appendChild(botonAmarillo);
+
+            //Función para crear botones
+            function creaBoton(textoBoton, colorBackground, colorText){
+                let boton = document.createElement('button');
+                boton.className = "cL_" + colorBackground;
+                boton.textContent=textoBoton;
+                boton.style.backgroundColor = colorBackground;
+                boton.style.color = colorText;
+                document.body.appendChild(boton); 
+            }
+
+            titulo.innerHTML="<h1>Hola</h1><h3>Mundo</h3>";
+
+            document.querySelector("#botoncito").addEventListener("click", function(){
+                alert("¡Botón presionado!");
+            });
+
+        </script>
+    </body>
+</html>
