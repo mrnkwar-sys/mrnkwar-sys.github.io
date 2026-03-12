@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script
+            src="https://code.jquery.com/jquery-4.0.0.min.js"
+            integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao="
+            crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <table border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Ciudad</th>
+                <th>Edad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th id="nombre"></th>
+                <th id="apellidos"></th>
+                <th id="edad"></th>
+                <th id="ciudad"></th>
+            </tr>
+        </tbody>
+        </table>
+    </body>
+    <script>
+        $(document).ready(function(){
+            console.log("Mensaje: " + '{nombre: "Alberto",apellidos:"García",edad: 26,ciudad: "Granada"}');
+
+            let obj = {nombre: "Alberto",apellidos:"García",edad: 26,ciudad: "Granada"};
+
+            json_serializado = serializar(obj);
+
+            json_deserializado = deserializar(json_serializado);
+
+            $("#nombre").text(json_deserializado.nombre);
+            $("#apellidos").text(json_deserializado.apellidos);
+            $("#edad").text(json_deserializado.edad);
+            $("#ciudad").text(json_deserializado.ciudad);
+        });
+
+        function serializar(obj){
+            return JSON.stringify(obj);
+        }
+
+        function deserializar(obj){
+            return JSON.parse(obj);
+        }
+
+        function recibir(obj){
+            console.log("Serializado:" + obj.nombre);
+            return serializar(obj);
+        }
+
+        function enviar(obj){
+            console.log("Deserializado: " + json_serializado);
+            return deserializar(json_serializado);
+        }
+    </script>
+</html>
