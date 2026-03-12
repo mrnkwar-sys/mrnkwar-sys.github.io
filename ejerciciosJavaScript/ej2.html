@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejercicio 02</title>
+        <script src="https://code.jquery.com/jquery-4.0.0.min.js"
+            integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao="
+            crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <form>
+            <input type="text" id="nombre" placeholder="Nombre">
+            <input type="text" id="apellido" placeholder="Apellido">
+            <input type="text" id="ciudad" placeholder="Ciudad">
+            <input type="text" id="edad" placeholder="Edad">
+            <button type="button" id="botoncin">Pulsa y observa</button>
+        </form>
+        <table border="1">
+        <thead>
+            <tr>
+                <td>Nombre</td>
+                <td>Apellidos</td>
+                <td>Ciudad</td>
+                <td>Edad</td>
+            </tr>
+        </thead>
+        <tbody id="bodyTable">
+        </tbody>
+        </table>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Suma</th>
+                    <th>Media</th>
+                    <th>Máximo</th>
+                    <th>Mínimo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th id="suma"></th>
+                    <th id="media"></th>
+                    <th id="max"></th>
+                    <th id="min"></th>
+                </tr>
+            </tbody>
+        </table>
+        <script>
+            let suma = 0;
+            let max = Number.MIN_VALUE;
+            let min = Number.MAX_VALUE;
+            let cantidad = 0;
+
+            document.querySelector('#botoncin').addEventListener("click", function(){
+                $(document).ready(function(){
+                    let obj = {nombre: $("#nombre").val(), apellido: $("#apellido").val(), ciudad: $("#ciudad").val(), edad: $("#edad").val()};
+                   
+                    objSerializado = serializar(obj);
+
+                    objDeserializado = deserializar(objSerializado);
+
+                    if (objDeserializado.nombre == "" || objDeserializado.apellido == "" || objDeserializado.ciudad == "" || objDeserializado.edad == ""){
+                        alert("Uno de los campos está vacío");
+                        return;
+                    }
+
+                    $("#bodyTable").append(nuevaFila(objDeserializado));
+
+                    $("#suma").text(suma);
+                    $("#media").text(media);
+                    $("#max").text(max);
+                    $("#min").text(min);
+
+                    let edad = new Number(objDeserializado.edad);
+
+                    if (edad >= 0){
+                        cantidad++;
+                        suma += edad;
+                        media = suma/cantidad;
+
+                        if(edad > max){
+                            max = edad;
+                        } else if(edad < min){
+                            min = edad;
+                        }
+
+                        $("#suma").text(suma);
+                        $("#media").text(media);
+                        $("#max").text(max);
+                        $("#min").text(min);
+                    }
+
+                });
+            });
+
+            function nuevaFila(objDeserializado){
+                return "<tr>" +
+                        "<td>" + objDeserializado.nombre + "</td>" +
+                        "<td>" + objDeserializado.apellido + "</td>" +
+                        "<td>" + objDeserializado.ciudad + "</td>" +
+                        "<td>" + objDeserializado.edad + "</td>" +
+                        "</tr>";
+            }
+
+            function serializar(obj){
+            return JSON.stringify(obj);
+            }
+
+            function deserializar(obj){
+                return JSON.parse(obj);
+            }
+
+            function recibir(obj){
+                console.log("Serializado:" + obj.nombre);
+                return serializar(obj);
+            }
+
+            function enviar(obj){
+                console.log("Deserializado: " + json_serializado);
+                return deserializar(json_serializado);
+            }
+        </script>
+    </body>
+</html>
