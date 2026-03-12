@@ -10,15 +10,50 @@
         <label for="edad">Edad</label>
         <input type="number"  id="edad">
         <div><button id=boton>Enviar</button></div>
+        <p id="mensajeNombreEdad"></p>
+
+        <input type="number" id="primerNum" placeholder="Introduzca un número">
+        <input type="number" id="segundoNum" placeholder="Introduzca un número">
+        <button id="sumar">+</button>
+        <button id="restar">-</button>
+        <button id="dividir">/</button>
+        <button id="multiplicar">*</button>
+        <p id="resultado"></p>
 
         <script>
-            let nombre = document.getElementById("nombre");
-            let edad = document.getElementById("edad");
-            let mensaje = document.getElementById("mensaje");
-            document.querySelector('#boton').addEventListener("click", funtion(){
-                 mensaje = "Mi nombre es ${nombre} y tengo ${edad} años",
-                 
-            })
+            document.querySelector('#boton').addEventListener("click", function(){
+                let name = document.getElementById("nombre").value;
+                let num = document.getElementById("edad").value;
+                document.getElementById("mensajeNombreEdad").innerHTML = `Mi nombre es ${name} y tengo ${num} años`;  
+            });
+
+            document.querySelector('#sumar').addEventListener("click", function(){
+                let firstNum = new Number(document.getElementById("primerNum").value);
+                let secondNum = new Number(document.getElementById("segundoNum").value);
+                let result = firstNum + secondNum;
+                document.getElementById("resultado").innerHTML = `El resultado de la suma es ${result}`;
+            });
+
+            document.querySelector('#restar').addEventListener("click", function(){
+                let firstNum = new Number(document.getElementById("primerNum").value);
+                let secondNum = new Number(document.getElementById("segundoNum").value);
+                let result = firstNum - secondNum;
+                document.getElementById("resultado").innerHTML = `El resultado de la resta es ${result}`;
+            });
+
+            document.querySelector('#dividir').addEventListener("click", function(){
+                let firstNum = new Number(document.getElementById("primerNum").value);
+                let secondNum = new Number(document.getElementById("segundoNum").value);
+                let result = firstNum / secondNum;
+                document.getElementById("resultado").innerHTML = `El resultado de la división es ${result}`;
+            });
+
+            document.querySelector('#multiplicar').addEventListener("click", function(){
+                let firstNum = new Number(document.getElementById("primerNum").value);
+                let secondNum = new Number(document.getElementById("segundoNum").value);
+                let result = firstNum * secondNum;
+                document.getElementById("resultado").innerHTML = `El resultado de la multiplicación es ${result}`;
+            });
         </script>
     </body>
 </html>
