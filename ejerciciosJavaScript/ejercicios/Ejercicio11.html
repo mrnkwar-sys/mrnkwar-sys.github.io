@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejercicios 3 - Ejercicio 04</title>
+    </head>
+    <body>
+        <p id="leapYear"></p>
+        <script>
+            let age = new Number(prompt("Introduzca un año: "));
+            let message = document.getElementById("leapYear");
+            
+            function isLeapYear(age){
+                if ((age%4 === 0 && age%100 !== 0) || age%400 === 0) {
+			        message.textContent = `Es un año bisiesto`;
+		        } else {
+                    message.textContent = `No es un año bisiesto`;
+                }
+
+                return message.textContent;
+            }
+
+            isLeapYear(age);
+        </script>
+    </body>
+</html>

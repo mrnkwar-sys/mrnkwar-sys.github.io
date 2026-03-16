@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejercicios 3 - Ejercicio 02</title>
+    </head>
+    <body>
+        <p id="result"></p>
+        <script>
+            let firstNum = new Number(prompt("Introduzca un número: "));
+            let secondNum = new Number(prompt(`Introduzca otro número: `));
+            let message = document.getElementById("result");
+
+            function calculateAverage(firstNum, secondNum){
+                let average = (firstNum + secondNum)/2;
+                message.textContent = `Promedio: ${average}`;
+
+                return message.textContent;
+            }
+
+            calculateAverage(firstNum, secondNum);
+        </script>
+    </body>
+</html>

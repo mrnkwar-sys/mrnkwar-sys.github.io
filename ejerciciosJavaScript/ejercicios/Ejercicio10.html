@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejercicios 3 - Ejercicio 03</title>
+    </head>
+    <body>
+        <p id="typeNum"></p>
+        <script>
+            let num = new Number(prompt("Introduzca un número: "));
+            let message = document.getElementById("typeNum");
+            
+            function typeOfNumber(num){
+                if (num > 0){
+                    message.textContent = `Positivo`;
+                } else if (num < 0){
+                    message.textContent = `Negativo`;
+                } else {
+                    message.textContent = `Cero`;
+                }
+
+                return message.textContent;
+            }
+
+            typeOfNumber(num);
+        </script>
+    </body>
+</html>
