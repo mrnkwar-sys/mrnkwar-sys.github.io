@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejercicios 3 - Ejercicio 01</title>
+    </head>
+    <body>
+        <p id="greeting"></p>
+        <script>
+            let name = prompt("Introduzca su nombre: ");
+            let greet = document.getElementById("greeting");
+
+            function saludar(name){
+                return greet.textContent = `Hola, ${name}`;
+            }
+
+            saludar(name);
+        </script>
+    </body>
+</html>

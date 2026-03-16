@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejercicios 2 - Ejercicio 02</title>
+    </head>
+    <body>
+        <p id="votante"></p>
+        <script>
+           let edad = new Number(prompt("Indique su edad: "));
+           let votar = document.getElementById("votante");
+
+           if (edad < 18){
+            votar.textContent = `Usted no puede votar`;
+           } else {
+            votar.textContent = `Usted puede votar`;
+           }
+        </script>
+    </body>
+</html>

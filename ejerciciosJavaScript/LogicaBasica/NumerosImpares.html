@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Números impares</title>
+    </head>
+    <body>
+        <script>
+            let number;
+           do{
+            number = new Number(prompt(`Introduzca un número positivo:`)); 
+
+            if (number <= 0){
+                alert(`El número introducido no es positivo`);
+            }
+           } while (number <= 0);
+
+           for (let i = 0; i <= number; i++){
+            if (i%2 != 0){
+                console.log(i + ` `);
+            } 
+           }
+        </script>
+    </body>
+</html>

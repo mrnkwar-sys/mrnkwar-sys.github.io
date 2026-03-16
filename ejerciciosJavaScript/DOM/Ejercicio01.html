@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Bienvenida</title>
+    </head>
+    <body>
+        <h1 id="title">Bienvenido</h1>
+        <span id="access"></span>
+        <input type="text" id="name" placeholder="Nombre">
+        <input type="password" id="password" placeholder="Contraseña">
+        <button id="boton">Confirmar</button>
+
+        <br>
+
+        <button id="red" class="color">Rojo</button>
+        <button id="green" class="color">Verde</button>
+        <button id="blue" class="color">Azul</button>
+        <button id="yellow" class="color">Amarillo</button>
+
+        <script>
+            document.getElementById("boton").addEventListener("click", function(){
+                let userName = document.getElementById("name").value;
+                let passwordIntroduced = document.getElementById("password").value;
+                let acceptedAccess = document.getElementById("access");
+
+                if (userName === `admin` && passwordIntroduced === "1234"){
+                    acceptedAccess.textContent = "admin";
+                } else {
+                    alert(`Inténtelo de nuevo`);
+                }
+            });
+
+            const botonesColores = document.querySelectorAll(".color");
+            const h1Text = document.getElementById("title");
+
+            botonesColores.forEach(boton => {
+                boton.addEventListener("click", function(){
+                  h1Text.style.color = this.id;  
+                });
+            });
+
+//           document.getElementById("rojo").addEventListener("click", function(){
+//                let h1Rojo = document.getElementById("title");
+//                h1Rojo.style.color = "red";
+//            });
+//
+//            document.getElementById("verde").addEventListener("click", function(){
+//               let h1Verde = document.getElementById("title");
+//                h1Verde.style.color = "green";
+//           });
+//
+//           document.getElementById("azul").addEventListener("click", function(){
+//                let h1Azul = document.getElementById("title");
+//                h1Azul.style.color = "blue";
+//            });
+//
+//            document.getElementById("amarillo").addEventListener("click", function(){
+//               let h1Amarillo = document.getElementById("title");
+//                h1Amarillo.style.color = "yellow";
+//            });
+        </script>
+    </body>
+</html>

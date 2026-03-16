@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejercicios 2 - Ejercicio 06</title>
+    </head>
+    <body>
+        <p id="allNumbers"></p><br>
+        <p id="pairNumbers"></p><br>
+        <p id="sumNumbers"></p><br>
+        <script>
+            let firstNum = new Number(prompt(`Introduzca un número inicial:`));
+            let secondNum = new Number(prompt(`Introduzca un número final: `));
+           let all = document.getElementById("allNumbers");
+           let pair = document.getElementById("pairNumbers");
+           let sum = document.getElementById("sumNumbers");
+           let sumAll = 0;
+
+           for (let i = firstNum; i <= secondNum; i++){
+            all.textContent += `${i} `;
+            if (i%2 == 0){
+                pair.textContent += `${i} `;
+            }
+            sumAll += i;
+           }
+
+           sum.textContent = `${sumAll}`;
+        </script>
+    </body>
+</html>

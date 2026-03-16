@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>¿Eres Mayor de Edad?</title>
+    </head>
+    <body>
+        <script>
+           let edad = new Number(prompt("Introduce tu edad, por favor: "));
+           let mayorDeEdad = true;
+
+           if (edad < 18){
+            mayorDeEdad = false;
+           }
+
+           if (mayorDeEdad == true){
+            console.log(`Eres mayor de edad`);
+           } else {
+            console.log(`No eres mayor de edad`);
+           }
+        </script>
+    </body>
+</html>
