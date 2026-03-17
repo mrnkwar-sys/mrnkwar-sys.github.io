@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejercicios 5 - Ejercicio 02</title>
+    </head>
+    <body>
+        <p>Escribe un número del 0 al 100: </p>
+        <input type="number" id="numberGuessed">
+        <button type="button" id="play">Jugar</button>
+        <button type="button" id="restart">Reiniciar</button><br>
+
+        <p id="points"></p>
+        <p id="wallet"></p>
+        <script>
+            let userNumber = document.getElementById("numberGuessed");
+            let printPoints = document.getElementById("points");
+            let printWallet = document.getElementById("wallet");
+            let random = Math.floor(Math.random()*101);
+            let totalPoints = 0;
+            let totalWallet = 10;
+
+            console.log(random);
+
+            document.getElementById("play").addEventListener("click", function(){
+                if (userNumber !== random){
+                    totalWallet--;
+                    printPoints.textContent = `Puntos: ${totalPoints}`;
+                    printWallet.textContent = `Cartera: ${totalWallet}`;
+                }
+            });
+
+            document.getElementById("restart").addEventListener("click", function(){
+                totalWallet = 10;
+                totalPoints = 0;
+
+                random = Math.floor(Math.random()*101);
+                console.log(random);
+                
+                printPoints.textContent = `Puntos: ${totalPoints}`;
+                printWallet.textContent = `Cartera: ${totalWallet}`;
+            });
+        </script>
+    </body>
+</html>
