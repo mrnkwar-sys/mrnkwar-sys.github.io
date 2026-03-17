@@ -12,33 +12,49 @@
 
         <p id="points"></p>
         <p id="wallet"></p>
+        <p id="result"></p>
         <script>
-            let userNumber = document.getElementById("numberGuessed");
+            let userNumber = Number(document.getElementById("numberGuessed"));
             let printPoints = document.getElementById("points");
             let printWallet = document.getElementById("wallet");
+            let isWinner = document.getElementById("result");
             let random = Math.floor(Math.random()*101);
             let totalPoints = 0;
             let totalWallet = 10;
+            let playButton = document.getElementById("play");
 
             console.log(random);
 
             document.getElementById("play").addEventListener("click", function(){
+                let userNumber = Number(document.getElementById("numberGuessed").value);
                 if (userNumber !== random){
                     totalWallet--;
                     printPoints.textContent = `Puntos: ${totalPoints}`;
                     printWallet.textContent = `Cartera: ${totalWallet}`;
+
+                    if (totalWallet === 0){
+                        isWinner.textContent = `HAS PERDIDO!!! :(`;
+                        playButton.disabled = true;
+                    }
+                } else {
+                    totalPoints += totalWallet;
+                    totalWallet = 10;
+                    printPoints.textContent = `Puntos: ${totalPoints}`;
+                    printWallet.textContent = `Cartera: ${totalWallet}`;
+                    isWinner.textContent = `HAS GANADO!!!`;
                 }
             });
 
             document.getElementById("restart").addEventListener("click", function(){
                 totalWallet = 10;
-                totalPoints = 0;
 
                 random = Math.floor(Math.random()*101);
                 console.log(random);
                 
                 printPoints.textContent = `Puntos: ${totalPoints}`;
                 printWallet.textContent = `Cartera: ${totalWallet}`;
+                isWinner.textContent = ``;
+                playButton.disabled = false;
             });
         </script>
     </body>

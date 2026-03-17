@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejercicios 4 - Ejercicio 04</title>
+    </head>
+    <body>
+        <p id="leapYear"></p>
+        <script>
+            const pompompurin = {
+                nationality: "Japonés",
+                height: "Cinco grandes puddings",
+                weight: "Una sandía"
+            };
+
+            pompompurin.details = function () {
+                let asiEs = `Es ${this.nationality}, pesa ${this.weight} y mide lo mismo que ${this.height}`;
+
+                return asiEs;
+            };
+
+            console.log(pompompurin.details());
+        </script>
+    </body>
+</html>

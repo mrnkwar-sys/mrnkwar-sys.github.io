@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejercicios 4 - Ejercicio 02</title>
+    </head>
+    <body>
+        <p id="leapYear"></p>
+        <script>
+            let number = [10, 25, 13, 44, 35];
+
+            function largestNumber (number){
+                let maxValue = Number.MIN_SAFE_INTEGER;
+
+                number.forEach((num) =>{
+                    if (num > maxValue){
+                        maxValue = num;
+                    }
+                });
+
+                return maxValue;
+            }
+
+            console.log(largestNumber(number));
+        </script>
+    </body>
+</html>

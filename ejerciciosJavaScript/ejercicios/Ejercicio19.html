@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejercicios 5 - Ejercicio 01</title>
+    </head>
+    <body>
+        <input type="text" id="something" placeholder="Escriba algo aquí">
+
+        <button type="button" id="add">Añadir</button>
+
+        <ul id="list">
+        </ul>
+        <script>
+            document.getElementById("add").addEventListener("click", function(){
+                let unorderedList = document.getElementById("list");
+                let textIntroduced = document.getElementById("something").value;
+
+                let newItem = document.createElement("li");
+                newItem.textContent = textIntroduced;
+
+                unorderedList.append(newItem);
+            });
+        </script>
+    </body>
+</html>
