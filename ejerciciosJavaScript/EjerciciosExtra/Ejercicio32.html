@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejercicio 32</title>
+    </head>
+    <body>
+        <script>
+           let toDoList = {
+            tipoDeTarea: "Compras",
+            dia: "Lunes",
+            productos: ["Champú", "Cereales", "Aceite", "Zumo"],
+            cantidadDeProductos: 4,
+            estado: "pendiente",
+            notificacion: function(){
+                alert(`Esta tarea tiene una prioridad urgente!`);
+            }
+           }
+
+           console.log(toDoList.dia);
+           console.log(toDoList["tipoDeTarea"]);
+           console.log(toDoList["cantidadDeProductos"]);
+           console.log(toDoList.notificacion());
+        </script>
+    </body>
+</html>
