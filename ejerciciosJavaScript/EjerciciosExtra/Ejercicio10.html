@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejercicio 10</title>
+    </head>
+    <body>
+        <p id="ticket"></p>
+        <script>
+            let chosenMovie = Number(prompt("Elige tu pelicula favorita de las siguientes: \n 1. Zootopia \n 2. La ladrona de libros \n 3. Un don excepcional"));
+
+            switch(chosenMovie){
+                case 1 : document.write(`Su ticket ha sido emitido <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBUnqdo6WFqCowtk59Go30CwYi5A7NUHRcr4HKU8jxwWzItABeNCZo4ddgOV9SCp0SjsoqwYEtzmTgNKVzH4FQLUtoPmEM&s&ec=121585077">`);
+                break;
+                case 2 : document.write(`Su ticket ha sido emitido <img src="https://m.media-amazon.com/images/I/81w1E-7+f+L._AC_UF1000,1000_QL80_.jpg">`);
+                break;
+                case 3 : document.write(`Su ticket ha sido emitido <img src="https://m.media-amazon.com/images/S/pv-target-images/4ce57ec96bc16a6afcb6660f475dc0a5a3c705a1554ba9be1a64ca23550ff1ff.jpg">`);
+                break;
+            }
+        </script>
+    </body>
+</html>

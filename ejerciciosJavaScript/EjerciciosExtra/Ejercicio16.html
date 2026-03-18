@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejercicio 11</title>
+    </head>
+    <body>
+        <input type="text" id="triedPassword">
+
+        <button type="button" id="send">Enviar</button>
+        <p id="winOrLoose"></p>
+        <script>
+            const password = "agua";
+            let tried = document.getElementById("triedPassword");
+            let mayWin = document.getElementById("winOrLoose");
+            let sendButton = document.getElementById("send");
+            let timesTried = 0;
+
+            sendButton.addEventListener("click", function(){
+                timesTried++;
+
+                if (tried.value === password){
+                    mayWin.textContent = "HAS GANADOOOO";
+                    sendButton.disabled = true;
+                } else if(timesTried === 3){
+                    mayWin.textContent = "HAS PERDIDOOO";
+                    sendButton.disabled = true;
+                } else {
+                    mayWin.textContent = `Inténtelo de nuevo. Llevas ${timesTried} intentos`;
+                }
+            });
+        </script>
+    </body>
+</html>

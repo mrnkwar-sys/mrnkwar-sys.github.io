@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejercicio 13</title>
+    </head>
+    <body>
+        <input type="number" id="firstNum">
+        <input type="number" id="secondNum">
+
+        <button type="button" id="sum">Sumar</button>
+        <button type="button" id="subtract">Restar</button>
+        <button type="button" id="multiply">Multiplicar</button>
+        <button type="button" id="divide">Dividir</button>
+        <p id="result"></p>
+        <script>
+            let result = document.getElementById("result");
+
+            document.getElementById("sum").addEventListener("click", function(){
+                let firstNum = new Number(document.getElementById("firstNum").value);
+                let secondNum = new Number(document.getElementById("secondNum").value);
+                let sumResult = firstNum + secondNum;
+
+                result.textContent = `La suma da ${sumResult}`;
+            });
+
+            document.getElementById("subtract").addEventListener("click", function(){
+                let firstNum = new Number(document.getElementById("firstNum").value);
+                let secondNum = new Number(document.getElementById("secondNum").value);
+                let subtractResult = firstNum - secondNum;
+
+                result.textContent = `La resta da ${subtractResult}`;
+            });
+
+            document.getElementById("multiply").addEventListener("click", function(){
+                let firstNum = new Number(document.getElementById("firstNum").value);
+                let secondNum = new Number(document.getElementById("secondNum").value);
+                let multResult = firstNum*secondNum;
+
+                result.textContent = `La multiplicación da ${multResult}`;
+            });
+
+            document.getElementById("divide").addEventListener("click", function(){
+                let firstNum = new Number(document.getElementById("firstNum").value);
+                let secondNum = new Number(document.getElementById("secondNum").value);
+                let divResult = firstNum/secondNum;
+
+                result.textContent = `La multiplicación da ${divResult}`;
+            });
+        </script>
+    </body>
+</html>

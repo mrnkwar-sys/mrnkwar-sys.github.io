@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejercicio 28</title>
+    </head>
+    <body>
+        <button type="button" id="doClick">Clickéame</button>
+        <script>
+            let timesClicked = 0;
+           function contadorDeClick(){
+            document.getElementById("doClick").addEventListener("click", function(){
+                timesClicked++;
+                console.log(timesClicked);
+            });
+           }
+           
+           contadorDeClick();
+        </script>
+    </body>
+</html>

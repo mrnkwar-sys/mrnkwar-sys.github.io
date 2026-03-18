@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejercicio 11</title>
+    </head>
+    <body>
+        <p id="presentation"></p>
+        <script>
+            let secretNumber = 15;
+            let numberGuessed;
+
+            do {
+                numberGuessed = Number(prompt("Intenta adivinar el número: "));
+
+                if (numberGuessed === secretNumber){
+                    alert("LO HAS ADIVINADO!!!");
+                } else if (numberGuessed > secretNumber){
+                    alert("El número que has introducido es mayor. Intenta un número más bajo");
+                } else {
+                    alert("El número que has introducido es menor. Intenta un número más alto");
+                }
+            } while (numberGuessed !== secretNumber);
+        </script>
+    </body>
+</html>

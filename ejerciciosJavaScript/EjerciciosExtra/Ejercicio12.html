@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ejercicio 12</title>
+    </head>
+    <body>
+        <input type="number" id="numTragos">
+
+        <button type="button" id="send">Enviar</button>
+
+        <p id="allowToDrive"></p>
+        <script>
+            document.getElementById("send").addEventListener("click", function(){
+                let tragos = Number(document.getElementById("numTragos").value);
+
+                if (tragos > 0){
+                    alert("NO puedes manejar");
+                } else {
+                    alert("Nos alegra que seas un conductor responsable");
+                }
+            });
+        </script>
+    </body>
+</html>
