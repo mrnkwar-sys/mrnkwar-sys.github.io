@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>El juego del ahorcado</title>
+    </head>
+    <body>
+        <form>
+            <input type="text" id="guessedChar" maxlength="1">
+        </form>
+        <button type="button" id="try">Enviar</button>
+        <script>
+            //El listado que va a contener las palabras a adivinar
+            const listado = ["naranja", "fresa", "kiwi", "manzana"];
+
+            //
+            let theWord = document.getElementById("theFruit");
+
+            //La letra introducida por el usuario
+            let theChar;
+
+            //Se elige al azar un puesto de la tabla y la palabra contenida en ese puesto del array será la que el usuario tendrá que adivinar
+            let guessFruit = Math.floor(Math.random()*4);
+
+            let secretWord = listado[guessFruit];
+
+            //La palabra s
+            console.log(secretWord);
+
+            theWord.textContent = "_ ";
+
+            for (let i = 0; i < secretWord.length - 1; i++){
+                theWord.textContent += "_ ";
+            }
+
+            document.getElementById("try").addEventListener("click", function(){
+                theChar = document.getElementById("guessedChar").value;
+
+                if (theChar.length > 1){
+                    alert("Introduzca una sola letra, por favor");
+                }
+
+                theWord.textContent = "";
+
+                for (let y = 0; y < secretWord.length; y++){
+                    if (theChar === secretWord.charAt(y)){
+                        theWord.textContent += theChar + " ";
+                    } else {
+                        theWord.textContent += "_ ";
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
