@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ejercicio 01: Futbolero</title>
+    </head>
+    <body>
+        <p id="infoEquipo"></p>
+        <script>
+            async function obtenerInfo() {
+                const respuesta = await
+                fetch('https://thesportsdb.com/api/v1/json/3/searchteams.php?t=Chelsea');
+                const usuario = await respuesta.json();
+
+                document.getElementById("infoEquipo").textContent = usuario.strDescriptionEN;
+                console.log(team.strDescriptionEN);
+            }
+        </script>
+    </body>
+</html>
