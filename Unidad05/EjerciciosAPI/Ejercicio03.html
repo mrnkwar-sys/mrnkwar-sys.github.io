@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ejercicio 03: Geolocaliza una IP</title>
+    </head>
+    <body>
+        <h1>Buscador de IP</h1>
+        
+        <input type="text" id="ipInput" placeholder="Introduce una IP (ej: 8.8.8.8)">
+        <button id="btnBuscar">Buscar</button>
+
+        <script>
+            const inputIP = document.getElementById("ipInput");
+            const boton = document.getElementById("btnBuscar");
+
+            boton.addEventListener("click", function() {
+                const ipBuscada = inputIP.value;
+                
+                if (ipBuscada !== "") {
+                    geolocalizar(ipBuscada);
+                } else {
+                    alert("Por favor, introduce una dirección IP.");
+                }
+            });
+
+            async function geolocalizar(ip) {
+                // Realizamos la petición a la API
+                const respuesta = await fetch(`http://ip-api.com/json/${ip}`);
+                const datos = await respuesta.json();
+
+                if (datos.status === "success") {
+                    const lat = datos.lat;
+                    const lon = datos.lon;
+
+                    // Abrimos Google Maps en una nueva pestaña con las coordenadas
+                    window.open(`https://www.google.com/maps?q=${lat},${lon}`, '_blank');
+                } else {
+                    alert("No se ha podido localizar esa IP. Revisa que el formato sea correcto.");
+                }
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 6: Generador de Chistes</title>
+</head>
+<body>
+
+    <h1>Chuck Norris Joke Generator</h1>
+    
+    <select id="selectorCategorias">
+        <option value="">Selecciona una categoría...</option>
+    </select>
+
+    <button id="btnChiste">Cuéntame un chiste</button>
+
+    <div id="chisteActual" style="font-size: 24px; margin-top: 20px; font-weight: bold;"></div>
+
+    <script>
+        const selector = document.getElementById("selectorCategorias");
+        const pantallaChiste = document.getElementById("chisteActual");
+        const boton = document.getElementById("btnChiste");
+
+        // Al cargar la página, obtenemos las categorías
+        document.addEventListener("DOMContentLoaded", function() {
+            obtenerCategorias();
+        });
+
+        async function obtenerCategorias() {
+            const respuesta = await fetch('https://api.chucknorris.io/jokes/categories');
+            const categorias = await respuesta.json();
+
+            categorias.forEach(cat => {
+                selector.innerHTML += `<option value="${cat}">${cat}</option>`;
+            });
+        }
+
+        // Evento para el botón de generar chiste
+        boton.addEventListener("click", async function() {
+            const categoriaSeleccionada = selector.value;
+
+            if (categoriaSeleccionada !== "") {
+                const respuesta = await fetch(`https://api.chucknorris.io/jokes/random?category=${categoriaSeleccionada}`);
+                const datos = await respuesta.json();
+                
+                // Mostramos el texto del chiste
+                pantallaChiste.innerText = datos.value;
+            } else {
+                alert("Por favor, selecciona una categoría.");
+            }
+        });
+    </script>
+</body>
+</html>
