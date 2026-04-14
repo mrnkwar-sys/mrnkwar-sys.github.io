@@ -8,6 +8,14 @@
             crossorigin="anonymous"></script>
     </head>
     <body>
+        <form>
+            <input type="text" id="nombreInsertado" placeholder="Nombre">
+            <input type="text" id="apellidosInsertado" placeholder="Apellidos">
+            <input type="text" id="ciudadInsertada" placeholder="Ciudad">
+            <input type="number" id="edadInsertada" placeholder="Edad">
+        </form>
+        <button id="enviar">Enviar</button>
+        <br>
         <table border="1">
         <thead>
             <tr>
@@ -21,25 +29,30 @@
             <tr>
                 <td id="nombre"></td>
                 <td id="apellidos"></td>
-                <td id="edad"></td>
                 <td id="ciudad"></td>
+                <td id="edad"></td>
             </tr>
         </tbody>
         </table>
     </body>
     <script>
-        $(document).ready(function(){
-            let obj = {nombre: "Alberto",apellidos:"García",edad: 26,ciudad: "Granada"};
-             console.log(obj);
+        document.getElementById("enviar").addEventListener("click", function(event){
+            let nombreJs = document.getElementById("nombreInsertado").value;
+            let apellidosJs = document.getElementById("apellidosInsertado").value;
+            let ciudadJs = document.getElementById("ciudadInsertada").value;
+            let edadJs = document.getElementById("edadInsertada").value;
+
+            let obj = {nombreJs, apellidosJs, ciudadJs, edadJs};
+            console.log(obj);
 
             json_serializado = serializar(obj);
 
             json_deserializado = deserializar(json_serializado);
 
-            $("#nombre").text(json_deserializado.nombre);
-            $("#apellidos").text(json_deserializado.apellidos);
-            $("#edad").text(json_deserializado.edad);
-            $("#ciudad").text(json_deserializado.ciudad);
+            $("#nombre").text(json_deserializado.nombreJs);
+            $("#apellidos").text(json_deserializado.apellidosJs);
+            $("#edad").text(json_deserializado.edadJs);
+            $("#ciudad").text(json_deserializado.ciudadJs);
 
             recibir(obj);
             enviar(obj);
