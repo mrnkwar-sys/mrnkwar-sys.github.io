@@ -14,10 +14,11 @@
         <table border="1">
         <thead>
             <tr>
-                <td>Nombre</td>
-                <td>Apellidos</td>
-                <td>Ciudad</td>
-                <td>Edad</td>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Ciudad</th>
+                <th>Edad</th>
+                <th>Eliminar fila</th>
             </tr>
         </thead>
         <tbody id="bodyTable">
@@ -45,15 +46,15 @@
         <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
         <script>
             $(document).ready(function(){
+                let suma = 0;
+                let max = Number.MIN_VALUE;
+                let min = Number.MAX_VALUE;
+                let cantidad = 0;
+
                 $("#botoncin").click(function(){
                     let datos = getInputs();
                     let bodyTable = $("#bodyTable");
                     insertarEnTabla(bodyTable, datos);
-
-                    let suma = 0;
-                    let max = Number.MIN_VALUE;
-                    let min = Number.MAX_VALUE;
-                    let cantidad = 0;
 
                     $("#suma").text(suma);
                     $("#media").text(media);
@@ -101,6 +102,13 @@
                 tr.append(creaCelda(datos.ciudad));
                 tr.append(creaCelda(datos.edad));
 
+                let botonEliminar = $("<button>").text("Eliminar");
+
+                botonEliminar.on("click", function(){
+                    tr.remove();
+                });
+
+                tr.append($("<td>").append(botonEliminar));
                 contenedor.append(tr);
             };
 
