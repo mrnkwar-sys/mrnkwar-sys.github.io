@@ -21,8 +21,7 @@
                 listaEquipos = datos.teams;
 
                 listaEquipos.forEach(equipos => {
-                    lista.innerHTML += `
-                    <option value=${equipos.idTeam}>${equipos.strTeam}</option>`;
+                    lista.innerHTML += `<option value=${equipos.idTeam}>${equipos.strTeam}</option>`;
                 });
 
                 document.getElementById("listaEquipos").addEventListener("change", function(event){
