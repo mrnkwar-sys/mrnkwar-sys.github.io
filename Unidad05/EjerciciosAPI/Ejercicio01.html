@@ -1,41 +1,130 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Ejercicio 01: Futbolero</title>
+        <title>Ejercicio 01: Perros</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+        <style>
+            #imagenPerro{
+                max-width: 250px;
+                max-height: 250px;
+                padding: 10px;
+                align-self: center;
+                border-radius: 25px;
+            }
+
+            #contenedor{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            #listaPerros{
+                align-self: center;
+            }
+
+            #botonAleatorio{
+                width: 80px;
+                align-self: center;
+                box-shadow: 10px 5px 5px paleturquoise;
+            }
+
+            h2{
+                align-self: center;
+                font-family: 'Monoton';
+            }
+        </style>
     </head>
     <body>
-        <select id="listaEquipos"></select>
-        <div id="infoEquipo"></div>
+        <div id="contenedor">
+            <h2>Fotos de Perros</h2>
+            <select id="listaPerros"></select>
+            <br>
+            <img id="imagenPerro">
+            <br>
+            <button id="botonAleatorio">Aleatorio</button>
+        </div>
+        <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
         <script>
-            const lista = document.getElementById("listaEquipos");
-            const info = document.getElementById("infoEquipo");
-            let listaEquipos = [];
+            //Hace referencia al boton del html de id botonAleatorio
+            const aleatorio = $("#botonAleatorio");
+            //Hace referencia al select de id listaPerros
+            const lista = $("#listaPerros");
 
             document.addEventListener("DOMContentLoaded", function(){
-                obtenerInfo();
+                obtenerPerros();
+                mostrarPerroSeleccionado();
             });
-            
-            async function obtenerInfo() {
-                const respuesta = await fetch('https://www.thesportsdb.com/api/v1/json/123/search_all_teams.php?l=English_Premier_League');
-                const datos = await respuesta.json();
-                listaEquipos = datos.teams;
 
-                listaEquipos.forEach(equipos => {
-                    lista.innerHTML += `<option value=${equipos.idTeam}>${equipos.strTeam}</option>`;
+            //Cuando se pulse el boton, se muestra una imagen aleatoria de un perro
+            aleatorio.on("click", async function(event){
+                //Guardamos la informacion solicitada en una variable
+                const consulta = await fetch("https://dog.ceo/api/breeds/image/random");
+                //Convertimos el resultado de esa consulta en un objeto JavaScript
+                const resultado = await consulta.json();
+                //Obtenemos el enlace de la imagen, guardado en el atributo message
+                let perroAleatorio = resultado.message;
+
+                //Le asignamos a la imagen del html como src el enlace obtenido
+                document.getElementById("imagenPerro").src = perroAleatorio;
+            });
+
+            async function obtenerPerros(){
+                //Guardamos la informacion solicitada en una variable
+                const consulta2 = await fetch("https://dog.ceo/api/breeds/list/all");
+                //Convertimos el resultado de esa consulta en un objeto JavaScript
+                const resultado2 = await consulta2.json();
+                //Obtenemos el atributo en el que se almacenan las razas
+                const perroLista = resultado2.message;
+
+                //Recorremos todas las razas contenidas en perroLista
+                for (let raza in perroLista){
+                    //Creamos un variable que hara referencia a las razas que, ademas, son arrays
+                    let nacionalidad = perroLista[raza];
+
+                    //Si el array esta vacio, se anadira la opcion directamente al select
+                    if (nacionalidad.length === 0){
+                        lista.append(`<option value=${raza}>${raza}</option>`);
+                    //Si el array no esta vacio, significa que la raza tiene, ademas, una nacionalidad
+                    } else {
+                        //Creamos una opcion de grupo que tendra como nombre el nombre de la raza
+                        let grupoNacion = $(`<optgroup label=${raza}></optgroup>`);
+                        
+                        //Recorremos el array para crear una opcion por cada nacionalidad
+                        nacionalidad.forEach(perroNacion => {
+                            grupoNacion.append(`<option value=${raza}-${perroNacion}>${perroNacion}</option>`);
+                        });
+
+                        //Anadimos la opcion de grupo al select
+                        lista.append(grupoNacion);
+                    }
+                };
+            };
+
+            //Muestra la imagen del perro segun la raza que se haya seleccionado en el selector
+            function mostrarPerroSeleccionado(){
+                lista.on("change", async function(event){
+                    //GUardamos en una variable el perro seleccionado por el usuario
+                    const perroSeleccionado = event.target.value;
+
+                    //Remplazamos, en el value del option, el guion por una barra, ya que el enlace no se ejecutara con el guion
+                    const rutaApi = perroSeleccionado.replace("-", "/");
+
+                    //Guardamos el enlace con el value ya modificado
+                    const enlaceImagen = `https://dog.ceo/api/breed/${rutaApi}/images/random`;
+
+                    //Guardamos la informacion solicitada en una variable
+                    const consulta3 = await fetch(enlaceImagen);
+                    //Convertimos el resultado de esa consulta en un objeto JavaScript
+                    const resultado3 = await consulta3.json();
+                    //Obtenemos el atributo en el que se almacena la imagen del perro que buscamos
+                    const imagenPerrito = resultado3.message;
+
+                    //Establecemos que el src de la imagen
+                    document.getElementById("imagenPerro").src = imagenPerrito;
                 });
-
-                document.getElementById("listaEquipos").addEventListener("change", function(event){
-                const idSeleccionado = event.target.value;
-
-                const equipoSeleccionado = listaEquipos.find(equipo => equipo.idTeam === idSeleccionado);
-
-                info.innerHTML = `
-                <h2>${equipoSeleccionado.strTeam}</h2>
-                <p><strong>Formed Year:</strong> ${equipoSeleccionado.intFormedYear}</p>
-                <p><strong>Stadium:</strong> ${equipoSeleccionado.strStadium}</p>
-                <p><strong>Description:</strong> ${equipoSeleccionado.strDescriptionEN}</p>`;
-                });
-            }
+            };
         </script>
     </body>
 </html>

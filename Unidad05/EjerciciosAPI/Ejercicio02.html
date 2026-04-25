@@ -1,54 +1,41 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Ejercicio 6: Generador de Chistes</title>
-</head>
-<body>
+<html>
+    <head>
+        <title>Ejercicio 02: Futbolero</title>
+    </head>
+    <body>
+        <select id="listaEquipos"></select>
+        <div id="infoEquipo"></div>
+        <script>
+            const lista = document.getElementById("listaEquipos");
+            const info = document.getElementById("infoEquipo");
+            let listaEquipos = [];
 
-    <h1>Chuck Norris Joke Generator</h1>
-    
-    <select id="selectorCategorias">
-        <option value="">Selecciona una categoría...</option>
-    </select>
-
-    <button id="btnChiste">Cuéntame un chiste</button>
-
-    <div id="chisteActual" style="font-size: 24px; margin-top: 20px; font-weight: bold;"></div>
-
-    <script>
-        const selector = document.getElementById("selectorCategorias");
-        const pantallaChiste = document.getElementById("chisteActual");
-        const boton = document.getElementById("btnChiste");
-
-        // Al cargar la página, obtenemos las categorías
-        document.addEventListener("DOMContentLoaded", function() {
-            obtenerCategorias();
-        });
-
-        async function obtenerCategorias() {
-            const respuesta = await fetch('https://api.chucknorris.io/jokes/categories');
-            const categorias = await respuesta.json();
-
-            categorias.forEach(cat => {
-                selector.innerHTML += `<option value="${cat}">${cat}</option>`;
+            document.addEventListener("DOMContentLoaded", function(){
+                obtenerInfo();
             });
-        }
-
-        // Evento para el botón de generar chiste
-        boton.addEventListener("click", async function() {
-            const categoriaSeleccionada = selector.value;
-
-            if (categoriaSeleccionada !== "") {
-                const respuesta = await fetch(`https://api.chucknorris.io/jokes/random?category=${categoriaSeleccionada}`);
+            
+            async function obtenerInfo() {
+                const respuesta = await fetch('https://www.thesportsdb.com/api/v1/json/123/search_all_teams.php?l=English_Premier_League');
                 const datos = await respuesta.json();
-                
-                // Mostramos el texto del chiste
-                pantallaChiste.innerText = datos.value;
-            } else {
-                alert("Por favor, selecciona una categoría.");
+                listaEquipos = datos.teams;
+
+                listaEquipos.forEach(equipos => {
+                    lista.innerHTML += `<option value=${equipos.idTeam}>${equipos.strTeam}</option>`;
+                });
+
+                document.getElementById("listaEquipos").addEventListener("change", function(event){
+                const idSeleccionado = event.target.value;
+
+                const equipoSeleccionado = listaEquipos.find(equipo => equipo.idTeam === idSeleccionado);
+
+                info.innerHTML = `
+                <h2>${equipoSeleccionado.strTeam}</h2>
+                <p><strong>Formed Year:</strong> ${equipoSeleccionado.intFormedYear}</p>
+                <p><strong>Stadium:</strong> ${equipoSeleccionado.strStadium}</p>
+                <p><strong>Description:</strong> ${equipoSeleccionado.strDescriptionEN}</p>`;
+                });
             }
-        });
-    </script>
-</body>
+        </script>
+    </body>
 </html>
