@@ -7,37 +7,62 @@
         <h1>Buscador de IP</h1>
         
         <input type="text" id="ipInput" placeholder="Introduce una IP (ej: 8.8.8.8)">
-        <button id="btnBuscar">Buscar</button>
+        <button id="botonBuscar">Buscar</button>
+        <div id="visorMapa"></div>
 
+        <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
         <script>
-            const inputIP = document.getElementById("ipInput");
-            const boton = document.getElementById("btnBuscar");
+            const ipIntroducida = $("#ipInput").val();
+            const boton = $("#botonBuscar");
+            const mapa = $("#visorMapa");
 
-            boton.addEventListener("click", function() {
-                const ipBuscada = inputIP.value;
-                
-                if (ipBuscada !== "") {
-                    geolocalizar(ipBuscada);
+            boton.on("click", async function(){
+                if (ipIntroducida !== ""){
+                    const consulta = await fetch(`http://ip-api.com/json/${ipIntroducida}`);
+                    const respuesta = await consulta.json();
+
+                    if (respuesta.status === "success"){
+                        const latitud = respuesta.lat;
+                        const longitud = respuesta.lon;
+
+                        const urlMapa = `https://www.google.com/maps?q=${latitud},${longitud}`;
+
+                        mapa.html(`<iframe src=${urlMapa} width="100%" height="400" frameborder="0" style="border:0"></iframe>`);
+                    } else {
+                        alert("No se ha podido localizar esa IP");
+                    }
                 } else {
-                    alert("Por favor, introduce una dirección IP.");
+                    alert("Introduce una direccion IP");
                 }
             });
 
-            async function geolocalizar(ip) {
-                // Realizamos la petición a la API
-                const respuesta = await fetch(`http://ip-api.com/json/${ip}`);
-                const datos = await respuesta.json();
+            //const inputIP = document.getElementById("ipInput");
+            //const boton = document.getElementById("btnBuscar");
 
-                if (datos.status === "success") {
-                    const lat = datos.lat;
-                    const lon = datos.lon;
+            //boton.addEventListener("click", function() {
+            //    const ipBuscada = inputIP.value;
+                
+            //    if (ipBuscada !== "") {
+            //        geolocalizar(ipBuscada);
+            //    } else {
+            //        alert("Por favor, introduce una dirección IP.");
+            //    }
+            //});
+
+            //async function geolocalizar(ip) {
+                // Realizamos la petición a la API
+            //    const respuesta = await fetch(`http://ip-api.com/json/${ip}`);
+            //    const datos = await respuesta.json();
+
+            //    if (datos.status === "success") {
+            //        const lat = datos.lat;
+            //        const lon = datos.lon;
 
                     // Abrimos Google Maps en una nueva pestaña con las coordenadas
-                    window.open(`https://www.google.com/maps?q=${lat},${lon}`, '_blank');
-                } else {
-                    alert("No se ha podido localizar esa IP. Revisa que el formato sea correcto.");
-                }
-            }
+            //        window.open(`https://www.google.com/maps?q=${lat},${lon}`, '_blank');
+            //    } else {
+            //        alert("No se ha podido localizar esa IP. Revisa que el formato sea correcto.");
+            //    }
         </script>
     </body>
 </html>
