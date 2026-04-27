@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ejercicio 04: Pokedex Basica</title>
+    </head>
+    <body>
+        <h1>Ejercicio 04: Pokedex Basica</h1>
+        <div id="info"></div>
+        <input type="text" id="pokeInput" placeholder="Introduce el nombre/ID del Pokemon">
+        <button id="botonBuscar">Buscar</button>
+        <button id="botonAnterior">Anterior</button>
+        <button id="botonSiguiente">Siguiente</button>
+        <img id="imagen">
+
+        <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+        <script>
+            const pokeBoton = $("#botonBuscar");
+            const pokeImagen = $("#imagen");
+            const pokeInfo = $("#info");
+            const pokeAnterior = $("#botonAnterior");
+            const pokeSiguiente = $("#botonSiguiente");
+            let listaTipos = "";
+            let idActual = 0;
+
+            pokeBoton.on("click", function() {
+                const pokemon = $("#pokeInput").val().toLowerCase();
+
+                if (pokemon !== "") {
+                    obtenerPokemon(pokemon);
+                } else {
+                    alert("Introduzca el ID/nombre de un pokemon");
+                }
+            });
+
+            pokeAnterior.on("click", function(){
+                if (idActual >= 1) {
+                    obtenerPokemon(idActual - 1);
+                } else {
+                    alert(`Primero debe introducir el nombre/id del pokemon`);
+                }
+            });
+
+            pokeSiguiente.on("click", function(){
+                if (idActual >= 0) {
+                    obtenerPokemon(idActual + 1);
+                } else {
+                    alert(`Primero debe introducir el nombre/id del pokemon`);
+                }
+            });
+
+            async function obtenerPokemon(pokemon){
+
+                const consulta = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
+                const resultado = await consulta.json();
+
+                idActual = resultado.id;
+
+                resultado.types.forEach(tipo => {
+                    listaTipos += `<span>${tipo.type.name} </span>`;
+                });
+
+                pokeInfo.html(`
+                <h2>${resultado.name.toUpperCase()}</h2>
+                <p>Tipos: ${listaTipos}</p>
+                `);
+
+                pokeImagen.attr("src", resultado.sprites.front_default);
+
+                listaTipos = "";
+            }
+        </script>
+    </body>
+</html>

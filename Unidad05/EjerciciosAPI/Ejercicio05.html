@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ejercicio 05: El Tiempo Local</title>
+    </head>
+    <body>
+        <h1>Ejercicio 05: El Tiempo Local</h1>
+        <input type="text" id="ciudadInput" placeholder="Introduce una ciudad">
+        <button id="botonBuscar">Buscar</button>
+        <div id="info"></div>
+
+        <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+        <script>
+           const buscar = $("#botonBuscar");
+           const infoTiempo = $("#info");
+
+           buscar.on("click", async function(){
+                const ciudad = $("#ciudadInput").val();
+
+                const consulta = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${ciudad}`);
+                const respuesta = await consulta.json();
+                const datos = respuesta.results[0];
+
+                let latitud = datos.latitude;
+                let longitud = datos.longitude;
+
+                const consulta2 = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitud}&longitude=${longitud}&current_weather=true`);
+                const respuesta2 = await consulta2.json();
+
+                infoTiempo.html(`
+                <h2>Ciudad: ${datos.name}</h2>
+                <p>Temperatura actual: ${respuesta2.current_weather.temperature}</p>
+                <p>Velocidad del viento: ${respuesta2.current_weather.windspeed}</p>`);
+
+                if (respuesta2.current_weather.is_day === 1){
+                    document.body.style.backgroundColor = "lightblue";
+                } else {
+                    document.body.style.backgroundColor = "darkblue";
+                }
+           });
+        </script>
+    </body>
+</html>
