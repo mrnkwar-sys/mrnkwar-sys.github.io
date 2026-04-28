@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ejercicio 02. Insertar datos dinámicos</title>
+    </head>
+    <body>
+        <form>
+            <input type="text" id="nombre" placeholder="Nombre">
+            <input type="text" id="apellido" placeholder="Apellido">
+            <input type="text" id="ciudad" placeholder="Ciudad">
+            <input type="text" id="edad" placeholder="Edad">
+            <button type="button" id="botoncin">Pulsa y observa</button>
+        </form>
+        <table border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Ciudad</th>
+                <th>Edad</th>
+                <th>Eliminar fila</th>
+            </tr>
+        </thead>
+        <tbody id="bodyTable">
+        </tbody>
+        </table>
+        <br>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Suma</th>
+                    <th>Media</th>
+                    <th>Máximo</th>
+                    <th>Mínimo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="suma"></td>
+                    <td id="media"></td>
+                    <td id="max"></td>
+                    <td id="min"></td>
+                </tr>
+            </tbody>
+        </table>
+        <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                let suma = 0;
+                let max = Number.MIN_VALUE;
+                let min = Number.MAX_VALUE;
+                let cantidad = 0;
+                let arrayCalculos = [];
+
+                $("#botoncin").click(function(){
+                    let datos = getInputs();
+                    let bodyTable = $("#bodyTable");
+                    insertarEnTabla(bodyTable, datos);
+
+                    let edad = new Number(datos.edad);
+                    arrayCalculos.push(datos.edad);
+                    console.log(arrayCalculos);
+
+                    arrayCalculos.forEach(numero =>{
+                        suma += parseInt(numero);
+                        media = suma/arrayCalculos.length;
+
+                        if (numero > max){
+                            max = numero;
+                        } else if (numero < min){
+                            min = numero;
+                        }
+                    });
+
+                        $("#suma").text(suma);
+                        $("#media").text(media);
+                        $("#max").text(max);
+                        $("#min").text(min);
+
+                        suma = 0;
+                    });
+
+
+                });
+
+            function getInputs(){
+                if ($("#nombre").val().trim() === "" || $("#apellido").val().trim() === "" || $("#ciudad").val().trim() === "" || $("#edad").val().trim() === ""){
+                    alert("Todos los campos deben estar rellenados");
+                } else {
+                    return{
+                    nombre: $("#nombre").val(),
+                    apellidos: $("#apellido").val(),
+                    ciudad: $("#ciudad").val(),
+                    edad: $("#edad").val()
+                    }
+                }
+            };
+
+            function insertarEnTabla(contenedor, datos){
+                let tr = $("<tr>");
+                tr.append(creaCelda(datos.nombre));
+                tr.append(creaCelda(datos.apellidos));
+                tr.append(creaCelda(datos.ciudad));
+                tr.append(creaCelda(datos.edad));
+
+                let botonEliminar = $("<button>").text("Eliminar");
+
+                botonEliminar.on("click", function(){
+                    tr.remove();
+                });
+
+                tr.append($("<td>").append(botonEliminar));
+                contenedor.append(tr);
+            };
+
+            function creaCelda(dato){
+                let td = $("<td>");
+                td.text(dato);
+                return td;
+            };
+        </script>
+    </body>
+</html>
