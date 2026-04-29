@@ -45,12 +45,13 @@
         </table>
         <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
         <script>
+            let suma = 0;
+            let max = Number.MIN_VALUE;
+            let min = Number.MAX_VALUE;
+            let posicion = 0;
+            let arrayCalculos = [];
+
             $(document).ready(function(){
-                let suma = 0;
-                let max = Number.MIN_VALUE;
-                let min = Number.MAX_VALUE;
-                let cantidad = 0;
-                let arrayCalculos = [];
 
                 $("#botoncin").click(function(){
                     let datos = getInputs();
@@ -107,6 +108,9 @@
 
                 botonEliminar.on("click", function(){
                     tr.remove();
+
+                    let numeroEliminar = arrayCalculos.find(numero => numero === datos.edad);
+
                 });
 
                 tr.append($("<td>").append(botonEliminar));
@@ -117,6 +121,11 @@
                 let td = $("<td>");
                 td.text(dato);
                 return td;
+            };
+
+            function recalcular(numeroEliminar){
+                
+
             };
         </script>
     </body>
