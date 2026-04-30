@@ -45,15 +45,19 @@
         </table>
         <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
         <script>
-            let suma = 0;
-            let max = Number.MIN_VALUE;
-            let min = Number.MAX_VALUE;
             let posicion = 0;
             let arrayCalculos = [];
 
             $(document).ready(function(){
 
                 $("#botoncin").click(function(){
+                    let calculos = {
+                        suma: 0,
+                        media: 0,
+                        maximo: 0,
+                        minimo: 9999
+                    };
+
                     let datos = getInputs();
                     let bodyTable = $("#bodyTable");
                     insertarEnTabla(bodyTable, datos);
@@ -62,23 +66,9 @@
                     arrayCalculos.push(datos.edad);
                     console.log(arrayCalculos);
 
-                    arrayCalculos.forEach(numero =>{
-                        suma += parseInt(numero);
-                        media = suma/arrayCalculos.length;
+                    let resultado = calcular(calculos);
+                    pintarCalculos(resultado);
 
-                        if (numero > max){
-                            max = numero;
-                        } else if (numero < min){
-                            min = numero;
-                        }
-                    });
-
-                        $("#suma").text(suma);
-                        $("#media").text(media);
-                        $("#max").text(max);
-                        $("#min").text(min);
-
-                        suma = 0;
                     });
 
 
@@ -88,7 +78,7 @@
                 if ($("#nombre").val().trim() === "" || $("#apellido").val().trim() === "" || $("#ciudad").val().trim() === "" || $("#edad").val().trim() === ""){
                     alert("Todos los campos deben estar rellenados");
                 } else {
-                    return{
+                    return {
                     nombre: $("#nombre").val(),
                     apellidos: $("#apellido").val(),
                     ciudad: $("#ciudad").val(),
@@ -123,10 +113,27 @@
                 return td;
             };
 
-            function recalcular(numeroEliminar){
-                
+            function calcular(calculos){
+                arrayCalculos.forEach(numero =>{
+                        calculos.suma += parseInt(numero);
+                        calculos.media = calculos.suma/arrayCalculos.length;
 
+                        if (numero > calculos.maximo){
+                            calculos.maximo = numero;
+                        } 
+                        if (numero < calculos.minimo){
+                            calculos.minimo = numero;
+                        }
+                    });
+                return calculos;
             };
+
+            function pintarCalculos(calculos){
+                $("#suma").text(calculos.suma);
+                $("#media").text(calculos.media);
+                $("#max").text(calculos.maximo);
+                $("#min").text(calculos.minimo);
+            }
         </script>
     </body>
 </html>
