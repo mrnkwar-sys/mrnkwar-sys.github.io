@@ -67,10 +67,10 @@
                     let resultado = calcular(calculos);
                     pintarCalculos(resultado);
 
-                    });
-
-
                 });
+
+
+            });
 
             function getInputs(){
                 if ($("#nombre").val().trim() === "" || $("#apellido").val().trim() === "" || $("#ciudad").val().trim() === "" || $("#edad").val().trim() === ""){
@@ -92,6 +92,8 @@
                 tr.append(creaCelda(datos.ciudad));
                 tr.append(creaCelda(datos.edad));
 
+                contenedor.append(tr);
+                
                 tr.on("click", function(){
                     tr.remove();
 
@@ -111,8 +113,6 @@
                     let resultado = calcular(nuevosCalculos);
                     pintarCalculos(resultado);
                 });
-
-                contenedor.append(tr);
             };
 
             function creaCelda(dato){
