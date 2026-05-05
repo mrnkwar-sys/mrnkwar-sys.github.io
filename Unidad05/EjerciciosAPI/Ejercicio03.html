@@ -12,25 +12,38 @@
 
         <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
         <script>
-            const ipIntroducida = $("#ipInput").val();
+            //Referencia al input, el btn y el mapa que se verá en el html
             const boton = $("#botonBuscar");
             const mapa = $("#visorMapa");
 
+            //Cuando se haga click al boton
             boton.on("click", async function(){
-                if (ipIntroducida === ""){
+                const ipIntroducida = $("#ipInput").val();
+
+                //Si la IP introducida no es nula, se hace una consulta a la API
+                if (ipIntroducida != ""){
+                    //Se consulta la API con un await para que la siguiente linea de codigo no se ejecute hasta que lo haga esta
                     const consulta = await fetch(`http://ip-api.com/json/${ipIntroducida}`);
+
+                    //Pasamos la respuesta de la API a un objeto JavaScript manejable y la guardamos en una variable
                     const respuesta = await consulta.json();
 
+                    //Si el status es igual a success, la IP buscada existe y podemos mostrarla por el navegador
                     if (respuesta.status === "success"){
+                        //Recogemos la latitutd y la longitud de la IP buscada
                         const latitud = respuesta.lat;
                         const longitud = respuesta.lon;
 
+                        //Guardamos la url de google maps 
                         const urlMapa = `https://maps.google.com/maps?q=${latitud},${longitud}&z=15&output=embed`;
 
+                        //Establecemos el contenido de la etiqueta div mapa con una etiqueta iframe para poder mostrar el mapa por el navegador
                         mapa.html(`<iframe src=${urlMapa} width="100%" height="400" frameborder="0" style="border:0"></iframe>`);
                     } else {
+                        //Si el status no fuese igual a success, significaria que no podemos encontrar la IP buscada
                         alert("No se ha podido localizar esa IP");
                     }
+                //Si la IP introducida fuese nula, salta el alert
                 } else {
                     alert("Introduce una direccion IP");
                 }
