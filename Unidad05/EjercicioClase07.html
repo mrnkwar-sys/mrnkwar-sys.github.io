@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ejercicio 04. Reto</title>
+    </head>
+    <body>
+        <form>
+            <input type="text" id="descripcion" placeholder="Descripción del producto">
+            <input type="number" id="proveedor" placeholder="Proveedor del producto">
+            <input type="number" id="precio" step="any" placeholder="Precio del producto">
+        </form>
+        <button id="botoncin">Enviar</button>
+        <h2 id="tituloError" style="color: red; font-weight: bold;"></h2>
+       <table border="1">
+        <thead>
+            <th>Id del Producto</th>
+            <th>Descripción</th>
+            <th>Id del Proveedor</th>
+            <th>Precio</th>
+            <th>Borrado</th>
+        </thead>
+        <tbody id="body">
+            
+        </tbody>
+       </table>
+        <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+        <script>
+            const bodyTable = $("#body");
+            const boton = $("#botoncin");
+
+            $(document).ready(function(){
+                boton.on("click", function(){
+                    let datos = getInputs();
+                    envio(datos);
+                });
+            });
+
+            function getInputs(){
+                if ($("#descripcion").val().trim() === "" || $("#proveedor").val() === null || $("#precio").val() === null){
+                    alert("Todos los campos deben estar rellenados");
+                } else {
+                    return {
+                    descripcion: $("#descripcion").val(),
+                    proveedor: $("#proveedor").val(),
+                    precio: $("#precio").val()
+                    }
+                }
+            };
+
+            function envio(objeto_js) {
+                $.ajax({
+                    url: "https://lm.iesnervion.es/reto4.php",
+                    method: "POST",
+                    data: JSON.stringify(objeto_js),
+                    contentType: "application/json", // Tipo de contenido
+                    dataType: "json" // La respuesta será interpretada como JSON
+                }).done(response=>insertarEnTabla(bodyTable, encontrarProducto(getInputs(), response.lista)));
+            }
+
+            function creaCelda(dato){
+                let td = $("<td>");
+                    td.text(dato);
+                    return td;
+            }
+
+            function insertarEnTabla(contenedor, producto){
+                let tr = $("<tr>");
+                    
+                tr.append(creaCelda(producto.id));
+                tr.append(creaCelda(producto.descripcion));
+                tr.append(creaCelda(producto.idProveedor));
+                tr.append(creaCelda(producto.precio));
+                tr.append(creaCelda(producto.borrado));
+
+                contenedor.append(tr);
+            }
+
+            function mostrarError(error){
+                if (error === null){
+                    $("#tituloError").text("No hay error");
+                } else {
+                    $("#tituloError").text(error);
+                }
+            }
+
+            function encontrarProducto(info, lista){
+                let productoBuscado = lista.find(producto => producto.descripcion === info.descripcion && producto.idProveedor == info.proveedor && producto.precio == info.precio);
+
+                return productoBuscado;
+            }
+        </script>
+    </body>
+</html>
