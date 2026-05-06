@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Repaso tablas</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <form id="formulario">
+            <input type="text" id="nombre" placeholder="Introduzca un nombre">
+            <input type="text" id="apellidos" placeholder="Introduzca un apellido">
+            <input type="text" id="ciudad" placeholder="Introduzca una ciudad">
+            <input type="number" id="edad" placeholder="Introduzca una edad">
+
+            <fieldset style="margin-top: 10px;">
+                <legend>Hobbies</legend>
+                <input type="checkbox" name="hobby" value="deporte">
+                <label for="deporte">Deporte</label>
+
+                <input type="checkbox" name="hobby" value="lectura">
+                <label for="lectura">Lectura</label>
+
+                <input type="checkbox" name="hobby" value="musica">
+                <label for="musica">Musica</label>
+
+                <input type="checkbox" name="hobby" value="juegos">
+                <label for="juegos">Juegos</label>
+
+                <input type="checkbox" name="hobby" value="cine">
+                <label for="cine">Cine</label>
+
+                <input type="checkbox" name="hobby" value="teatro">
+                <label for="teatro">Teatro</label>
+
+                <input type="checkbox" name="hobby" value="coleccionismo">
+                <label for="coleccionismo">Coleccionismo</label>
+
+                <input type="checkbox" name="hobby" value="bricolaje">
+                <label for="bricolaje">Bricolaje</label>
+
+                <input type="checkbox" name="hobby" value="cosplay">
+                <label for="cosplay">Cosplay</label>
+            </fieldset>
+        </form>
+        <button id="boton" style="margin-top: 10px;">Enviar</button>
+
+        <div style="display: flex; justify-content: space-around;">
+            <table border="1" style="margin-top: 10px;">
+            <thead>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Ciudad</th>
+                <th>Edad</th>
+                <th>Hobbies</th>
+            </thead>
+            <tbody id="body">
+
+            </tbody>
+        </table>
+
+        <table border="1">
+            <thead>
+                <th>Suma</th>
+                <th>Media</th>
+                <th>Maximo</th>
+                <th>Minimo</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="suma"></td>
+                    <td id="media"></td>
+                    <td id="max"></td>
+                    <td id="min"></td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        
+        <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+        <script>
+            let tablaEdades = [];
+            const bodyTable = $("#body");
+
+            $(document).ready(function(){
+                $("#boton").on("click", function(){
+                    let calculos = {
+                        suma: 0,
+                        media: 0,
+                        maximo: 0,
+                        minimo: 999
+                    };
+
+                    let datos = getInputs();
+                    insertarEnTabla(bodyTable, datos);
+
+                    let numero = new Number(datos.edad);
+                    tablaEdades.push(datos.edad);
+                    console.log(tablaEdades);
+
+                    let edades = calcular(calculos);
+                    pintarCalculos(edades);
+
+                    $("#formulario")[0].reset();
+                });
+            });
+
+            $("input[name='hobby']").on("change", function(){
+                let marcados = $("input[name='hobby']:checked").length;
+
+                if (marcados >= 3){
+                    $("input[name='hobby']:not(:checked)").prop("disabled", true);
+                } else {
+                    $("input[name='hobby']").prop("disabled", false);
+                }
+            });
+
+            function getInputs(){
+                if ($("#nombre").val().trim() == "" || $("#apellidos").val().trim() == "" || $("#ciudad").val().trim() == "" || $("#edad").val() == null || $("input[name='hobby']:checked").length === 0) {
+                    alert("Todos los campos deben estar rellenados");
+                } else {
+
+                    let hobbiesMarcados = $("input[name='hobby']:checked").map(function(){
+                        return $(this).val();
+                    }).get();
+
+                    return {
+                        nombre: $("#nombre").val(),
+                        apellidos: $("#apellidos").val(),
+                        ciudad: $("#ciudad").val(),
+                        edad: $("#edad").val(),
+                        hobbiesMarcados: hobbiesMarcados.join(", ")
+                    }
+                }
+            }
+
+            function creaCelda(dato){
+                let td = $("<td>");
+                td.text(dato);
+                return td;
+            }
+
+            function insertarEnTabla(contenedor, dato){
+                let tr = $("<tr>");
+
+                tr.append(creaCelda(dato.nombre));
+                tr.append(creaCelda(dato.apellidos));
+                tr.append(creaCelda(dato.ciudad));
+                tr.append(creaCelda(dato.edad));
+                tr.append(creaCelda(dato.hobbiesMarcados));
+
+                contenedor.append(tr);
+
+                tr.on("click", function(){
+                    tr.remove();
+
+                    let indice = tablaEdades.indexOf(dato.edad);
+
+                    if (indice > -1){
+                        tablaEdades.splice(indice, 1);
+                    }
+
+                    let nuevosCalculos = {
+                        suma: 0,
+                        media: 0,
+                        maximo: 0,
+                        minimo: 999
+                    };
+
+                    let nuevasEdades = calcular(nuevosCalculos);
+                    pintarCalculos(nuevasEdades);
+                })
+            }
+
+            function calcular(calculos){
+                if (tablaEdades.length === 0){
+                    return {suma: 0, media: 0, maximo: 0, minimo: 0}
+                }
+
+                tablaEdades.forEach(numero => {
+                    calculos.suma += parseInt(numero);
+                    calculos.media = calculos.suma/tablaEdades.length;
+
+                    if (numero > calculos.maximo){
+                        calculos.maximo = numero;
+                    }
+
+                    if (numero < calculos.minimo){
+                        calculos.minimo = numero;
+                    }
+                });
+                return calculos;
+            }
+
+            function pintarCalculos(calculos){
+                $("#suma").text(calculos.suma);
+                $("#media").text(calculos.media);
+                $("#max").text(calculos.maximo);
+                $("#min").text(calculos.minimo);
+            }
+        </script>
+    </body>
+</html>

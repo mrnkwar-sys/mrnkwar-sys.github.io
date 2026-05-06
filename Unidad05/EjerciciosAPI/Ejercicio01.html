@@ -80,24 +80,24 @@
 
                 //Recorremos todas las razas contenidas en perroLista
                 for (let raza in perroLista){
-                    //Creamos un variable que hara referencia a las razas que, ademas, son arrays
-                    let nacionalidad = perroLista[raza];
+                    //Creamos una variable que hara referencia a las razas que, ademas, son arrays
+                    let razaSeleccionada = perroLista[raza]; //Es lo mismo que hacer perroLista.raza
 
                     //Si el array esta vacio, se anadira la opcion directamente al select
-                    if (nacionalidad.length === 0){
+                    if (razaSeleccionada.length === 0){
                         lista.append(`<option value=${raza}>${raza}</option>`);
                     //Si el array no esta vacio, significa que la raza tiene, ademas, una nacionalidad
                     } else {
                         //Creamos una opcion de grupo que tendra como nombre el nombre de la raza
-                        let grupoNacion = $(`<optgroup label=${raza}></optgroup>`);
+                        let nacionalidad = $(`<optgroup label=${raza}></optgroup>`);
                         
                         //Recorremos el array para crear una opcion por cada nacionalidad
-                        nacionalidad.forEach(perroNacion => {
-                            grupoNacion.append(`<option value=${raza}-${perroNacion}>${perroNacion}</option>`);
+                        razaSeleccionada.forEach(perroNacion => {
+                            nacionalidad.append(`<option value=${raza}-${perroNacion}>${perroNacion}</option>`);
                         });
 
                         //Anadimos la opcion de grupo al select
-                        lista.append(grupoNacion);
+                        lista.append(nacionalidad);
                     }
                 };
             };
@@ -105,7 +105,7 @@
             //Muestra la imagen del perro segun la raza que se haya seleccionado en el selector
             function mostrarPerroSeleccionado(){
                 lista.on("change", async function(event){
-                    //GUardamos en una variable el perro seleccionado por el usuario
+                    //Guardamos en una variable el perro seleccionado por el usuario
                     const perroSeleccionado = event.target.value;
 
                     //Remplazamos, en el value del option, el guion por una barra, ya que el enlace no se ejecutara con el guion

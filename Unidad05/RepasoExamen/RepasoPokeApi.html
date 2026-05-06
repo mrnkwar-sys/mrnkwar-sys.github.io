@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Repaso Ejercicio PokeAPI</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <input type="text" id="pokemonSolicitado" placeholder="Introduzca la ID/nombre del pokemon">
+        <button id="anterior">Anterior</button>
+        <button id="boton">Buscar</button>
+        <button id="siguiente">Siguiente</button>
+        <h2 id="nombre"></h2>
+        <p id="tipos"></p>
+        <img src="" id="imagen">
+        <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+        <script>
+            let idActual = 0;
+
+            $("#boton").on("click", async function(){
+                let pokemon = $("#pokemonSolicitado").val().trim();
+
+                if (pokemon === "" || pokemon === null){
+                    alert("Debe introducir el nombre/ID de un pokemon");
+                } else {
+                    const consulta = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
+                    const resultado = await consulta.json();
+
+                    idActual = resultado.id;
+
+                    obtenerNombre(resultado);
+                    obtenerImagen(resultado);
+                    obtenerLista(resultado);
+                }
+            });
+
+            $("#anterior").on("click", async function(){
+                if (idActual !== 0){
+                    idActual--;
+                    consultaAPI(idActual);
+                } else {
+                    alert("Primero debe buscar un pokemon por su nombre/ID")
+                }
+            });
+
+            $("#siguiente").on("click", async function(){
+                if (idActual !== 0){
+                    idActual++;
+                    consultaAPI(idActual);
+                } else {
+                    alert("Primero debe buscar un pokemon por su nombre/ID")
+                }
+            });
+
+            function obtenerNombre(response){
+                $("#nombre").html(`${response.name.toUpperCase()}`);
+            }
+
+            function obtenerImagen(response){
+                $("#imagen").attr("src", response.sprites.front_default);
+            }
+
+            function obtenerLista(response){
+                let pokeTipos = response.types;
+                $("#tipos").html("Tipos: ");
+
+                pokeTipos.forEach(tipo => {
+                    $("#tipos").append(`${tipo.type.name} | `);
+                });
+            }
+
+            async function consultaAPI(pokemon){
+                const consulta = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
+                const resultado = await consulta.json();
+
+                obtenerNombre(resultado);
+                obtenerImagen(resultado);
+                obtenerLista(resultado);
+            }
+        </script>
+    </body>
+</html>
