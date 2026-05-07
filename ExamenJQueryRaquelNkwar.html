@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Examen JQuery María Raquel Nkwar</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <h1>Infiltración en el Servidor de la Sociedad Secreta</h1>
+        <h2>María Raquel Nkwar Ipa</h2>
+        <h2 id="tituloExito"></h2>
+        <div id="listaInstrucciones"></div>
+        <form>
+            <input type="hidden" id="nom_alum">
+            <input type="hidden" id="num_ejer">
+            <input type="text" id="nombre" placeholder="Inserta el nombre de usuario">
+            <input type="text" id="apellidos" placeholder="Inserta los apellidos del usuario">
+            <input type="password" id="password" placeholder="Inserta la contraseña">
+            <input type="hidden" id="llave">
+        </form>
+        <button id="enviar">Enviar</button>
+        <button id="boton">Instrucciones</button>
+        <script src="JQuerys/jquery3.js"></script>
+        <script>
+            let llave;
+
+            //Cuando se pulse el botón, se muestra la lista con los pasos a seguir
+            $("#boton").on("click", async function (){
+                //Hacemos la consulta a la API
+                const consulta = await fetch("http://192.168.100.150/api/secret");
+                //Guardamos dicha consulta como un objeto Javascript
+                const resultado = await consulta.json();
+
+                //Guardamos el array de las instrucciones en una variable
+                let pasos = resultado.instrucciones;
+
+                //Llamamos a la función para mostrar los pasos por el navegador
+                mostrarInstrucciones(pasos);
+            });
+
+            $("#enviar").on("click", function(){
+                let datos = getInputs();
+
+               // enviarDatos(datos);
+
+               //Token provisional
+               $("#llave").attr("value", "Token provisional");
+
+               nuevosDatos = getInputs();
+
+               enviarDatosSecret(nuevosDatos);
+            });
+
+            //Muestra las intrucciones por el navegador
+            function mostrarInstrucciones(pasos){
+                //Creamos una etiqueta que guarde las instrucciones
+                let lista = $("<li>");
+
+                //Por cada índice del array, añadimos un ol al li
+                pasos.forEach(paso => {
+                    lista.append(`<ol>${paso}</ol>`);
+                });
+
+                //Añadimos finalmente la lista a la etiqueta html
+                $("#listaInstrucciones").html(lista);
+            }
+
+            //Recoge los inputs del formulario que nos interesa recoger
+            function getInputs(){
+                if ($("#nombre").val().trim() === "" || $("#apellidos").val().trim() === "" || $("#password").val().trim() === ""){
+                    alert("Todos los campos deben estar rellenos");
+                }
+
+                return {
+                    nombre: $("#nombre").val(),
+                    apellidos: $("#apellidos").val(),
+                    password: $("#password").val(),
+                    llave: $("#llave").val()
+                }
+            }
+
+            //Envia los datos a la API secret
+            function enviarDatosSecret(datos){
+                console.log(datos);
+                $.ajax({
+                    url:"http://192.168.100.150/api/secret",
+                    method: "POST",
+                    data: JSON.stringify(datos),
+                    contentType: "application/json",
+                    dataType: "json"
+                }).done(response => $("#tituloExito").html(`${response.message}`))
+                .fail(error => console.log(error));
+            }
+
+            //Envía los datos a la API
+            function enviarDatosLlave(datos){
+                console.log(datos);
+                $.ajax({
+                    url:"http://192.168.100.150/api/get_key",
+                    method: "POST",
+                    data: JSON.stringify(datos),
+                    contentType: "application/json",
+                    dataType: "json"
+                }).done(response => console.log(response.message))
+                .fail(error => console.log(error));
+            }
+        </script>
+    </body>
+</html>
